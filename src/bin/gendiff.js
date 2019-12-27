@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import commander from 'commander';
-import gendiff from '../index';
+import gendiff from '..';
 
 commander
   .version('0.1.0')
