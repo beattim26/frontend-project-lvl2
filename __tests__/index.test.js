@@ -14,7 +14,7 @@ describe('gendiff', () => {
       '- follow': false,
     };
 
-    expect(gendiff(fileBefore, fileAfter)).toBe(expected);
+    expect(gendiff(fileBefore, fileAfter)).toEqual(expected);
     expect(gendiff()).toBe('');
     expect(gendiff(fileBefore)).toBe(fileBefore);
   });

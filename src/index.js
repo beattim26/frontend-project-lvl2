@@ -13,26 +13,26 @@ const getDiff = (firstData, secondData) => {
   return allKeys.reduce((acc, item) => {
     const firstValue = firstData[item];
     const secondValue = secondData[item];
+    const addedValue = { ...acc, [item]: firstValue };
+    const changedValue = firstValue !== undefined
+      ? { ...acc, [`+ ${item}`]: secondValue, [`- ${item}`]: firstValue }
+      : { ...acc, [`+ ${item}`]: secondValue };
+    const removedValue = { ...acc, [`- ${item}`]: firstValue };
 
     if (_.has(secondData, item)) {
       return firstValue === secondValue
-        ? { ...acc, [item]: firstValue }
-        : { ...acc, [`+ ${item}`]: secondValue };
+        ? addedValue
+        : changedValue;
     }
 
-    if (!_.has(secondData, item)) {
-      return { ...acc, [`- ${item}`]: firstValue };
-    }
-
-    return acc;
+    return removedValue;
   }, {});
 };
 
 const genDiff = (pathToBefore, pathToAfter) => {
   const dataBefore = jsonParser(pathToBefore);
   const dataAfter = jsonParser(pathToAfter);
-  const diff = getDiff(dataBefore, dataAfter);
-  console.log(diff);
+  return getDiff(dataBefore, dataAfter);
 };
 
 genDiff('./__fixtures__/json/before.json', './__fixtures__/json/after.json');
