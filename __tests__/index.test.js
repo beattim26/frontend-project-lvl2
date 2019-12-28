@@ -1,10 +1,9 @@
-import fs from 'fs';
 import gendiff from '../src';
 
 describe('gendiff', () => {
-  const fileBefore = fs.readFileSync('./__fixtures__/json/before.json', 'utf-8');
-  const fileAfter = fs.readFileSync('./__fixtures__/json/after.json', 'utf-8');
   test('gendiff JSON', () => {
+    const pathToBefore = './__fixtures__/json/before.json';
+    const pathToAfter = './__fixtures__/json/after.json';
     const expected = {
       host: 'hexlet.io',
       '+ timeout': 20,
@@ -14,8 +13,6 @@ describe('gendiff', () => {
       '- follow': false,
     };
 
-    expect(gendiff(fileBefore, fileAfter)).toEqual(expected);
-    expect(gendiff()).toBe('');
-    expect(gendiff(fileBefore)).toBe(fileBefore);
+    expect(gendiff(pathToBefore, pathToAfter)).toEqual(expected);
   });
 });
