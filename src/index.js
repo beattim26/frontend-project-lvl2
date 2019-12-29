@@ -1,15 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
-
-const jsonParser = (pathToFile) => {
-  if (!pathToFile) {
-    return '';
-  }
-
-  const absolutePath = path.resolve(pathToFile);
-  return JSON.parse(fs.readFileSync(absolutePath, 'utf-8'));
-};
+import parse from './parser';
 
 const getDiff = (firstData, secondData) => {
   const allKeys = _.union(Object.keys(firstData), Object.keys(secondData));
@@ -18,10 +10,10 @@ const getDiff = (firstData, secondData) => {
     const firstValue = firstData[item];
     const secondValue = secondData[item];
     const addedValue = { ...acc, [item]: firstValue };
+    const removedValue = { ...acc, [`- ${item}`]: firstValue };
     const changedValue = firstValue !== undefined
       ? { ...acc, [`+ ${item}`]: secondValue, [`- ${item}`]: firstValue }
       : { ...acc, [`+ ${item}`]: secondValue };
-    const removedValue = { ...acc, [`- ${item}`]: firstValue };
 
     if (_.has(secondData, item)) {
       return firstValue === secondValue
@@ -33,21 +25,18 @@ const getDiff = (firstData, secondData) => {
   }, {});
 };
 
-const genDiff = (pathToBefore, pathToAfter) => {
-  const dataBefore = jsonParser(pathToBefore);
-  const dataAfter = jsonParser(pathToAfter);
+const getData = (pathToFile) => fs.readFileSync(path.resolve(pathToFile), 'utf-8');
+const getExt = (pathToFile) => path.extname(path.resolve(pathToFile));
 
-  if (!pathToBefore && !pathToAfter) {
+const genDiff = (pathToBefore, pathToAfter) => {
+  if (!pathToBefore || !pathToAfter) {
     return '';
   }
 
-  if (!pathToAfter) {
-    return dataBefore;
-  }
+  const dataBefore = parse(getData(pathToBefore), getExt(pathToBefore));
+  const dataAfter = parse(getData(pathToAfter), getExt(pathToAfter));
 
   return getDiff(dataBefore, dataAfter);
 };
-
-genDiff('./__fixtures__/__json/__before.json', './__fixtures__/__json/__after.json');
 
 export default genDiff;
