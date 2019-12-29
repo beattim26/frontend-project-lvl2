@@ -1,18 +1,14 @@
+import fs from 'fs';
 import gendiff from '../src';
+import resultJson from '../__fixtures__/__json/__result';
 
 describe('gendiff', () => {
   test('gendiff JSON', () => {
-    const pathToBefore = './__fixtures__/json/before.json';
-    const pathToAfter = './__fixtures__/json/after.json';
-    const expected = {
-      host: 'hexlet.io',
-      '+ timeout': 20,
-      '- timeout': 50,
-      '- proxy': '123.234.53.22',
-      '+ verbose': true,
-      '- follow': false,
-    };
+    const pathToBefore = './__fixtures__/__json/__before.json';
+    const pathToAfter = './__fixtures__/__json/__after.json';
 
-    expect(gendiff(pathToBefore, pathToAfter)).toEqual(expected);
+    expect(gendiff(pathToBefore, pathToAfter)).toEqual(resultJson);
+    expect(gendiff('')).toBe('');
+    expect(gendiff(pathToBefore)).toEqual(JSON.parse(fs.readFileSync(pathToBefore, 'utf-8')));
   });
 });

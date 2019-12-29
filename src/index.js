@@ -3,6 +3,10 @@ import fs from 'fs';
 import _ from 'lodash';
 
 const jsonParser = (pathToFile) => {
+  if (!pathToFile) {
+    return '';
+  }
+
   const absolutePath = path.resolve(pathToFile);
   return JSON.parse(fs.readFileSync(absolutePath, 'utf-8'));
 };
@@ -32,9 +36,18 @@ const getDiff = (firstData, secondData) => {
 const genDiff = (pathToBefore, pathToAfter) => {
   const dataBefore = jsonParser(pathToBefore);
   const dataAfter = jsonParser(pathToAfter);
+
+  if (!pathToBefore && !pathToAfter) {
+    return '';
+  }
+
+  if (!pathToAfter) {
+    return dataBefore;
+  }
+
   return getDiff(dataBefore, dataAfter);
 };
 
-genDiff('./__fixtures__/json/before.json', './__fixtures__/json/after.json');
+genDiff('./__fixtures__/__json/__before.json', './__fixtures__/__json/__after.json');
 
 export default genDiff;
