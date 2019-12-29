@@ -1,22 +1,25 @@
 import gendiff from '../src';
-import result from '../__fixtures__/__result';
+import result from '../__fixtures__/result';
 
 describe('gendiff', () => {
-  test('gendiff JSON', () => {
-    const pathToBefore = './__fixtures__/__json/__before.json';
-    const pathToAfter = './__fixtures__/__json/__after.json';
+  let pathToBefore;
+  let pathToAfter;
 
-    expect(gendiff(pathToBefore, pathToAfter)).toEqual(result);
+  beforeEach(() => {
+    pathToBefore = (ext) => `./__fixtures__/${ext}/before.${ext}`;
+    pathToAfter = (ext) => `./__fixtures__/${ext}/after.${ext}`;
+  });
+
+  test('gendiff incorrect value', () => {
     expect(gendiff('')).toBe('');
     expect(gendiff(pathToBefore)).toBe('');
   });
 
-  test('gendiff YAML', () => {
-    const pathToBefore = './__fixtures__/__yaml/__before.yml';
-    const pathToAfter = './__fixtures__/__yaml/__after.yml';
+  test('gendiff JSON', () => {
+    expect(gendiff(pathToBefore('json'), pathToAfter('json'))).toEqual(result);
+  });
 
-    expect(gendiff(pathToBefore, pathToAfter)).toEqual(result);
-    expect(gendiff('')).toBe('');
-    expect(gendiff(pathToBefore)).toBe('');
+  test('gendiff YAML', () => {
+    expect(gendiff(pathToBefore('yml'), pathToAfter('yml'))).toEqual(result);
   });
 });
