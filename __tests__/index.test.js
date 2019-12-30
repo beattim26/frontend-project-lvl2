@@ -22,4 +22,8 @@ describe('gendiff', () => {
   test('gendiff YAML', () => {
     expect(gendiff(pathToBefore('yml'), pathToAfter('yml'))).toEqual(result);
   });
+
+  test('gendiff INI', () => {
+    expect(gendiff(pathToBefore('ini'), pathToAfter('ini'))).toEqual(result);
+  });
 });
