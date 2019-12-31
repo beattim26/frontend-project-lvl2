@@ -19,10 +19,40 @@ $ gendiff file1.json file2.json
 ```sh
 {
   host: 'hexlet.io',
-  '+ timeout': 20,
-  '- timeout': 50,
+  '+ timeout': '20',
+  '- timeout': '50',
   '- proxy': '123.234.53.22',
-  '- follow': false,
-  '+ verbose': true
+  '- follow': 'false',
+  '+ verbose': 'true'
+}
+```
+
+```sh
+$ gendiff file1.yml file2.yml
+```
+
+```sh
+{
+  host: 'hexlet.io',
+  '+ timeout': '20',
+  '- timeout': '50',
+  '- proxy': '123.234.53.22',
+  '- follow': 'false',
+  '+ verbose': 'true'
+}
+```
+
+```sh
+$ gendiff file1.ini file2.ini
+```
+
+```sh
+{
+  host: 'hexlet.io',
+  '+ timeout': '20',
+  '- timeout': '50',
+  '- proxy': '123.234.53.22',
+  '- follow': 'false',
+  '+ verbose': 'true'
 }
 ```
