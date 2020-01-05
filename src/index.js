@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import parser from './parser';
+import parser from './parsers';
 import getDiff from './render';
 
 const getData = (pathToFile) => fs.readFileSync(path.resolve(pathToFile), 'utf-8');
