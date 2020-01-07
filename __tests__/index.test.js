@@ -1,6 +1,7 @@
 import gendiff from '../src';
 import mainResult from '../__fixtures__/results/main';
 import plainResult from '../__fixtures__/results/plain';
+import jsonResult from '../__fixtures__/results/json';
 
 describe('gendiff', () => {
   let pathToBefore;
@@ -17,18 +18,22 @@ describe('gendiff', () => {
   });
 
   test('gendiff JSON', () => {
-    expect(gendiff(pathToBefore('json'), pathToAfter('json'))).toEqual(mainResult);
+    expect(gendiff(pathToBefore('json'), pathToAfter('json'))).toBe(mainResult);
   });
 
   test('gendiff YAML', () => {
-    expect(gendiff(pathToBefore('yml'), pathToAfter('yml'))).toEqual(mainResult);
+    expect(gendiff(pathToBefore('yml'), pathToAfter('yml'))).toBe(mainResult);
   });
 
   test('gendiff INI', () => {
-    expect(gendiff(pathToBefore('ini'), pathToAfter('ini'))).toEqual(mainResult);
+    expect(gendiff(pathToBefore('ini'), pathToAfter('ini'))).toBe(mainResult);
   });
 
   test('gendiff plain format', () => {
-    expect(gendiff(pathToBefore('json'), pathToAfter('json'), 'plain')).toEqual(plainResult);
+    expect(gendiff(pathToBefore('json'), pathToAfter('json'), 'plain')).toBe(plainResult);
+  });
+
+  test('gendiff json format', () => {
+    expect(gendiff(pathToBefore('json'), pathToAfter('json'), 'json')).toEqual(jsonResult);
   });
 });

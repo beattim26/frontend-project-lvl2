@@ -3,8 +3,8 @@ import _ from 'lodash';
 const astOperations = [
   {
     type: 'hasChild',
-    check: (firstData, secondData, item) => (firstData[item] instanceof Object
-      && secondData[item] instanceof Object),
+    check: (firstData, secondData, item) => (_.isObject(firstData[item])
+      && _.isObject(secondData[item])),
     operation: (firstValue, secondValue, func) => ({ children: func(firstValue, secondValue) }),
   },
   {

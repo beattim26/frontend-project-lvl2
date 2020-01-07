@@ -1,7 +1,8 @@
+import _ from 'lodash';
 import buildAst from '../ast-builder';
 
 const stringify = (key, value, spaces) => {
-  if (value instanceof Object) {
+  if (_.isObject(value)) {
     return `${' '.repeat(spaces)}${key}: {\n${Object.keys(value)
       .reduce((acc, item) => acc + stringify(item, value[item], spaces + 4), '')}${' '.repeat(spaces + 2)}}\n`;
   }
