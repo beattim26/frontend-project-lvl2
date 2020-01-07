@@ -1,5 +1,6 @@
 import gendiff from '../src';
-import result from '../__fixtures__/result';
+import mainResult from '../__fixtures__/results/main';
+import plainResult from '../__fixtures__/results/plain';
 
 describe('gendiff', () => {
   let pathToBefore;
@@ -16,14 +17,18 @@ describe('gendiff', () => {
   });
 
   test('gendiff JSON', () => {
-    expect(gendiff(pathToBefore('json'), pathToAfter('json'))).toEqual(result);
+    expect(gendiff(pathToBefore('json'), pathToAfter('json'))).toEqual(mainResult);
   });
 
   test('gendiff YAML', () => {
-    expect(gendiff(pathToBefore('yml'), pathToAfter('yml'))).toEqual(result);
+    expect(gendiff(pathToBefore('yml'), pathToAfter('yml'))).toEqual(mainResult);
   });
 
   test('gendiff INI', () => {
-    expect(gendiff(pathToBefore('ini'), pathToAfter('ini'))).toEqual(result);
+    expect(gendiff(pathToBefore('ini'), pathToAfter('ini'))).toEqual(mainResult);
+  });
+
+  test('gendiff plain format', () => {
+    expect(gendiff(pathToBefore('json'), pathToAfter('json'), 'plain')).toEqual(plainResult);
   });
 });

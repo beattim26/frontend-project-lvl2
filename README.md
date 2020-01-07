@@ -12,16 +12,15 @@ $ make install
 
 ## Start Gendiff
 
-```sh
-$ You can compare formats: .json, .yml, .ini
-```
+You can compare formats: .json, .yml, .ini
 
 ```sh
 $ gendiff before.json after.json
 ```
 
-```sh
 before.json:
+
+```sh
 
 {
   "common": {
@@ -43,9 +42,11 @@ before.json:
     "abc": 12345
   }
 }
+```
 
 after.json:
 
+```sh
 {
   "common": {
     "follow": false,
@@ -73,9 +74,9 @@ after.json:
 }
 ```
 
-```sh
 result:
 
+```sh
 {
   common: {
       setting1: Value 1
@@ -110,4 +111,23 @@ result:
     fee: 100500
   }
 }
+```
+You can also use "--format" to see another result
+
+```sh
+$ gendiff --format plain before.json after.json
+
+common.setting1 was unchanged
+common.setting2 was removed
+common.setting3 was updated. From true to [complex value]
+common.setting6.key was unchanged
+common.setting6.ops was added with value: vops
+common.follow was added with value: false
+common.setting4 was added with value: blah blah
+common.setting5 was added with value: [complex value]
+group1.baz was updated. From bas to bars
+group1.foo was unchanged
+group1.nest was updated. From [complex value] to str
+group2 was removed
+group3 was added with value: [complex value]
 ```

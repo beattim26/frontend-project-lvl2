@@ -1,4 +1,4 @@
-import buildAst from './astBuilder';
+import buildAst from '../ast-builder';
 
 const stringify = (key, value, spaces) => {
   if (value instanceof Object) {
@@ -20,12 +20,10 @@ const renderOperation = {
   },
 };
 
-const getDiff = (firstData, secondData) => {
+const render = (firstData, secondData) => {
   const ast = buildAst(firstData, secondData);
 
-  const render = (list) => `{\n${list.reduce((acc, item) => acc + renderOperation[item.type](item, 0), '')}}`;
-
-  return render(ast);
+  return `{\n${ast.reduce((acc, item) => acc + renderOperation[item.type](item, 0), '')}}`;
 };
 
-export default getDiff;
+export default render;
