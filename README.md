@@ -13,46 +13,101 @@ $ make install
 ## Start Gendiff
 
 ```sh
-$ gendiff file1.json file2.json
+$ You can compare formats: .json, .yml, .ini
 ```
 
 ```sh
+$ gendiff before.json after.json
+```
+
+```sh
+before.json:
+
 {
-  host: 'hexlet.io',
-  '+ timeout': '20',
-  '- timeout': '50',
-  '- proxy': '123.234.53.22',
-  '- follow': 'false',
-  '+ verbose': 'true'
+  "common": {
+    "setting1": "Value 1",
+    "setting2": 200,
+    "setting3": true,
+    "setting6": {
+      "key": "value"
+    }
+  },
+  "group1": {
+    "baz": "bas",
+    "foo": "bar",
+    "nest": {
+      "key": "value"
+    }
+  },
+  "group2": {
+    "abc": 12345
+  }
+}
+
+after.json:
+
+{
+  "common": {
+    "follow": false,
+    "setting1": "Value 1",
+    "setting3": {
+      "key": "value"
+    },
+    "setting4": "blah blah",
+    "setting5": {
+      "key5": "value5"
+    },
+    "setting6": {
+      "key": "value",
+      "ops": "vops"
+    }
+  },
+  "group1": {
+    "foo": "bar",
+    "baz": "bars",
+    "nest": "str"
+  },
+  "group3": {
+    "fee": 100500
+  }
 }
 ```
 
 ```sh
-$ gendiff file1.yml file2.yml
-```
+result:
 
-```sh
 {
-  host: 'hexlet.io',
-  '+ timeout': '20',
-  '- timeout': '50',
-  '- proxy': '123.234.53.22',
-  '- follow': 'false',
-  '+ verbose': 'true'
-}
-```
-
-```sh
-$ gendiff file1.ini file2.ini
-```
-
-```sh
-{
-  host: 'hexlet.io',
-  '+ timeout': '20',
-  '- timeout': '50',
-  '- proxy': '123.234.53.22',
-  '- follow': 'false',
-  '+ verbose': 'true'
+  common: {
+      setting1: Value 1
+    - setting2: 200
+    - setting3: true
+    + setting3: {
+        key: value
+      }
+      setting6: {
+          key: value
+        + ops: vops
+      }
+    + follow: false
+    + setting4: blah blah
+    + setting5: {
+        key5: value5
+      }
+  }
+  group1: {
+    - baz: bas
+    + baz: bars
+      foo: bar
+    - nest: {
+        key: value
+      }
+    + nest: str
+  }
+- group2: {
+    abc: 12345
+  }
++ group3: {
+    fee: 100500
+  }
 }
 ```
