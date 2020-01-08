@@ -12,7 +12,7 @@ $ make install
 
 ## Start Gendiff
 
-You can compare flat formats: .json, .yml, .ini
+Compare the flat structure for formats: .json, .yml, .ini
 
 ```sh
 $ gendiff before.json after.json
@@ -20,62 +20,10 @@ $ gendiff before.json after.json
 
 [![asciicast](https://asciinema.org/a/yGIHJIBvTHl90ZaEYi5oG8BiC.svg)](https://asciinema.org/a/yGIHJIBvTHl90ZaEYi5oG8BiC)
 
-You can also use "--format plain" or "--format json" to see another result
+You could also compare the nested structure for formats: .json, .yml, .ini
 
-```sh
-$ gendiff --format plain before.json after.json
+[![asciicast](https://asciinema.org/a/THGLvvPzYxARdm8qpASByMjZg.svg)](https://asciinema.org/a/THGLvvPzYxARdm8qpASByMjZg)
 
-common.setting1 was unchanged
-common.setting2 was removed
-common.setting3 was updated. From true to [complex value]
-common.setting6.key was unchanged
-common.setting6.ops was added with value: vops
-common.follow was added with value: false
-common.setting4 was added with value: blah blah
-common.setting5 was added with value: [complex value]
-group1.baz was updated. From bas to bars
-group1.foo was unchanged
-group1.nest was updated. From [complex value] to str
-group2 was removed
-group3 was added with value: [complex value]
-```
+You could use "-f plain" or "-f json" to get a different output format
 
-```sh
-$ gendiff --format json before.json after.json
-
-[{
-    key: "common",
-    type: "hasChild",
-    children: [
-      { key: "setting1", type: "unchanged", value: "Value 1" },
-      { key: "setting2", type: "deleted", value: 200 },
-      { key: "setting3", type: "changed", value: [true, { key: "value" }] },
-      {
-        key: "setting6",
-        type: "hasChild",
-        children: [
-          { key: "key", type: "unchanged", value: "value" },
-          { key: "ops", type: "added", value: "vops" },
-        ],
-      },
-      { key: "follow", type: "added", value: false },
-      { key: "setting4", type: "added", value: "blah blah" },
-      { key: "setting5", type: "added", value: { key5: "value5" } },
-    ],
-  },
-  {
-    key: "group1",
-    type: "hasChild",
-    children: [
-      { key: "baz", type: "changed", value: ["bas", "bars"] },
-      { key: "foo", type: "unchanged", value: "bar" },
-      { key: "nest", type: "changed", value: [{ key: "value" }, "str"] },
-    ],
-  },
-  { key: "group2", type: "deleted", value: { abc: 12345 } },
-  { key: "group3", type: "added", value: { fee: 100500 } }]
-```
-
-gendiff ./__fixtures__/json/before.json ./__fixtures__/json/after.json
-gendiff ./__fixtures__/yml/before.yml ./__fixtures__/yml/after.yml
-gendiff ./__fixtures__/ini/before.ini ./__fixtures__/ini/after.ini
+[![asciicast](https://asciinema.org/a/OhBoRCEYlZLzAkOUNvJe8DZSx.svg)](https://asciinema.org/a/OhBoRCEYlZLzAkOUNvJe8DZSx)
