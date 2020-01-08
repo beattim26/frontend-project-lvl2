@@ -12,106 +12,14 @@ $ make install
 
 ## Start Gendiff
 
-You can compare formats: .json, .yml, .ini
+You can compare flat formats: .json, .yml, .ini
 
 ```sh
 $ gendiff before.json after.json
 ```
 
-before.json:
+[![asciicast](https://asciinema.org/a/yGIHJIBvTHl90ZaEYi5oG8BiC.svg)](https://asciinema.org/a/yGIHJIBvTHl90ZaEYi5oG8BiC)
 
-```sh
-
-{
-  "common": {
-    "setting1": "Value 1",
-    "setting2": 200,
-    "setting3": true,
-    "setting6": {
-      "key": "value"
-    }
-  },
-  "group1": {
-    "baz": "bas",
-    "foo": "bar",
-    "nest": {
-      "key": "value"
-    }
-  },
-  "group2": {
-    "abc": 12345
-  }
-}
-```
-
-after.json:
-
-```sh
-{
-  "common": {
-    "follow": false,
-    "setting1": "Value 1",
-    "setting3": {
-      "key": "value"
-    },
-    "setting4": "blah blah",
-    "setting5": {
-      "key5": "value5"
-    },
-    "setting6": {
-      "key": "value",
-      "ops": "vops"
-    }
-  },
-  "group1": {
-    "foo": "bar",
-    "baz": "bars",
-    "nest": "str"
-  },
-  "group3": {
-    "fee": 100500
-  }
-}
-```
-
-result:
-
-```sh
-{
-  common: {
-      setting1: Value 1
-    - setting2: 200
-    - setting3: true
-    + setting3: {
-        key: value
-      }
-      setting6: {
-          key: value
-        + ops: vops
-      }
-    + follow: false
-    + setting4: blah blah
-    + setting5: {
-        key5: value5
-      }
-  }
-  group1: {
-    - baz: bas
-    + baz: bars
-      foo: bar
-    - nest: {
-        key: value
-      }
-    + nest: str
-  }
-- group2: {
-    abc: 12345
-  }
-+ group3: {
-    fee: 100500
-  }
-}
-```
 You can also use "--format plain" or "--format json" to see another result
 
 ```sh
@@ -167,3 +75,7 @@ $ gendiff --format json before.json after.json
   { key: "group2", type: "deleted", value: { abc: 12345 } },
   { key: "group3", type: "added", value: { fee: 100500 } }]
 ```
+
+gendiff ./__fixtures__/json/before.json ./__fixtures__/json/after.json
+gendiff ./__fixtures__/yml/before.yml ./__fixtures__/yml/after.yml
+gendiff ./__fixtures__/ini/before.ini ./__fixtures__/ini/after.ini
