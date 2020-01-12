@@ -18,7 +18,7 @@ const renderOperation = {
 const render = (firstData, secondData) => {
   const ast = buildAst(firstData, secondData);
 
-  return ast.reduce((acc, item) => acc + renderOperation[item.type](item, item.key), '');
+  return ast.reduce((acc, item) => acc + renderOperation[item.type](item, item.key), '').slice(0, -1);
 };
 
 export default render;

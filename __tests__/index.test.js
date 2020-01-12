@@ -1,7 +1,9 @@
+import fs from 'fs';
 import gendiff from '../src';
-import mainResult from '../__fixtures__/results/main';
-import plainResult from '../__fixtures__/results/plain';
-import jsonResult from '../__fixtures__/results/json';
+
+const mainResult = fs.readFileSync('./__fixtures__/results/main.txt', 'utf-8');
+const plainResult = fs.readFileSync('./__fixtures__/results/plain.txt', 'utf-8');
+const jsonResult = fs.readFileSync('./__fixtures__/results/json.json', 'utf-8');
 
 describe('gendiff', () => {
   let pathToBefore;
@@ -10,11 +12,6 @@ describe('gendiff', () => {
   beforeEach(() => {
     pathToBefore = (ext) => `./__fixtures__/${ext}/before.${ext}`;
     pathToAfter = (ext) => `./__fixtures__/${ext}/after.${ext}`;
-  });
-
-  test('gendiff incorrect value', () => {
-    expect(gendiff('')).toBe('');
-    expect(gendiff(pathToBefore)).toBe('');
   });
 
   test('gendiff JSON', () => {

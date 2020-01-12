@@ -8,6 +8,6 @@ const formats = {
   json: jsonRender,
 };
 
-const render = (firstData, secondData, format) => formats[format](firstData, secondData);
+const getDiff = (firstData, secondData, format) => formats[format](firstData, secondData);
 
-export default render;
+export default getDiff;
