@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import buildAst from '../ast-builder';
 
 const stringify = (key, value, spaces) => {
   if (_.isObject(value)) {
@@ -21,10 +20,6 @@ const renderOperation = {
   },
 };
 
-const render = (firstData, secondData) => {
-  const ast = buildAst(firstData, secondData);
-
-  return `{\n${ast.reduce((acc, item) => acc + renderOperation[item.type](item, 0), '')}}`;
-};
+const render = (ast) => `{\n${ast.reduce((acc, item) => acc + renderOperation[item.type](item, 0), '')}}`;
 
 export default render;

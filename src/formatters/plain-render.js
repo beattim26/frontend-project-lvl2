@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import buildAst from '../ast-builder';
 
 const stringifyValue = (value) => {
   const newValue = _.isObject(value) ? '[complex value]' : value;
@@ -15,10 +14,6 @@ const renderOperation = {
     .reduce((acc, element) => acc + renderOperation[element.type](element, `${path}.${element.key}`), ''),
 };
 
-const render = (firstData, secondData) => {
-  const ast = buildAst(firstData, secondData);
-
-  return ast.reduce((acc, item) => acc + renderOperation[item.type](item, item.key), '').slice(0, -1);
-};
+const render = (ast) => ast.reduce((acc, item) => acc + renderOperation[item.type](item, item.key), '').slice(0, -1);
 
 export default render;

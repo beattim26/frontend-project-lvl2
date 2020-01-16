@@ -1,13 +1,18 @@
 import fs from 'fs';
 import gendiff from '../src';
 
-const mainResult = fs.readFileSync('./__fixtures__/results/main.txt', 'utf-8');
-const plainResult = fs.readFileSync('./__fixtures__/results/plain.txt', 'utf-8');
-const jsonResult = fs.readFileSync('./__fixtures__/results/json.json', 'utf-8');
-
 describe('gendiff', () => {
+  let mainResult;
+  let plainResult;
+  let jsonResult;
   let pathToBefore;
   let pathToAfter;
+
+  beforeAll(() => {
+    mainResult = fs.readFileSync('./__fixtures__/results/main.txt', 'utf-8');
+    plainResult = fs.readFileSync('./__fixtures__/results/plain.txt', 'utf-8');
+    jsonResult = fs.readFileSync('./__fixtures__/results/json.json', 'utf-8');
+  });
 
   beforeEach(() => {
     pathToBefore = (ext) => `./__fixtures__/${ext}/before.${ext}`;
