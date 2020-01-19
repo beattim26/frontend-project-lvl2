@@ -20,7 +20,7 @@ const astOperations = [
   {
     type: 'changed',
     check: (firstData, secondData, item) => (firstData[item] !== secondData[item]),
-    operation: (firstValue, secondValue) => ({ value: [firstValue, secondValue] }),
+    operation: (firstValue, secondValue) => ({ changedValues: [firstValue, secondValue] }),
   },
   {
     type: 'unchanged',
